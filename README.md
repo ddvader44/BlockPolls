@@ -1,7 +1,21 @@
 # BlockPolls
 
-This project was made with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
+## Installation
 
-## Development server
+- Clone the project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+git clone https://github.com/ddvader44/BlockPolls
+```
+
+- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Show your support
+
+Give a ⭐ if you liked this project!
+
+## Contributions
+
+- Feel Free to Open a PR/Issue for any feature or bug(s).
+- Feel free to open an issue to ask a question/discuss anything about BlockPolls.
+- Have a feature request? Open an Issue!
