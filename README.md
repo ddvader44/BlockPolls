@@ -7,14 +7,6 @@
 ```bash
 git clone https://github.com/ddvader44/BlockPolls
 ```
-- Install the CLI using the npm package manager   
- ```bash
-npm install -g @angular/cli
-```
-- Run the command
-```bash
-ng new blockchain-poll --directory ./
-```
 
 - Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
