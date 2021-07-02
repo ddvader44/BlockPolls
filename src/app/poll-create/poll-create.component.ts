@@ -13,11 +13,11 @@ export class PollCreateComponent {
   constructor(private fb: FormBuilder) {
 
     this.pollForm = this.fb.group({
-      question: this.fb.control('',[Validators.required]), //first parameter, initialized by empty string and validated(required or not)
-      image: this.fb.control(''), // no need of validation, you can choose to leave it empty
-      op1: this.fb.control(''),
-      op2: this.fb.control(''),
-      op3: this.fb.control(''),
+      question: this.fb.control("",[Validators.required]), //first parameter, initialized by empty string and validated(required or not)
+      image: this.fb.control(""), // no need of validation, you can choose to leave it empty
+      op1: this.fb.control(""),
+      op2: this.fb.control(""),
+      op3: this.fb.control(""),
     });
    }
 
