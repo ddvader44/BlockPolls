@@ -16,7 +16,13 @@
 
 <div class="d-flex">
   <div class="container poll-list">
-    <b>List</b>
+    <app-poll *ngFor="let poll of polls"
+      [question] = "poll.question"
+      [votes] = "poll.votes"
+      [voted] = "poll.voted"
+      [pollImage] = "poll.image"
+    >
+    </app-poll>
   </div>
   <div class="container poll-details">
     <b>Details</b>
