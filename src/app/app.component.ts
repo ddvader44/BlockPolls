@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Poll } from './types';
 
 @Component({
   selector: 'app-root',
@@ -7,19 +8,32 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   showForm = false;
+  activePoll : Poll = null
 
-  polls = [
+  polls: Poll[] = [
     {
+      id: 1,
     question : "What do you like more, Pizza or Burger or Pasta",
-    image : "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=625&q=80",
-    votes: [4,5,1],
+    thumbnail : "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=625&q=80",
+    results: [4,5,1],
+    options : ["Pizza","Burger","Pasta"],
     voted : true,
   },
   {
+    id: 2,
     question : "Reservoir Dogs or Kill Bill or Pulp Fiction",
-    image : "https://images.unsplash.com/photo-1594073753319-df2a78cfd4e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
-    votes: [100,10,10],
+    thumbnail : "https://images.unsplash.com/photo-1594073753319-df2a78cfd4e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
+    results: [100,10,10],
+    options : ["Reservoir Dogs","Kill Bill","Pulp Fiction"],
     voted : false,
   }
 ];
+
+  setActivePoll(poll){
+  this.activePoll = null;
+  setTimeout(() => {
+    this.activePoll = poll;
+  },100);
+}
+
 }
