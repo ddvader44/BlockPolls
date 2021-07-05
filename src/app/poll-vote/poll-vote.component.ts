@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ApexCharts from 'apexcharts';
+import { PollVote } from '../types';
 
 @Component({
   selector: 'app-poll-vote',
@@ -14,26 +15,39 @@ export class PollVoteComponent implements AfterViewInit {
   @Input() results: number[];
   @Input() question : string;
 
+  @Input() id : number;
+
+  @Output() pollVoted : EventEmitter<PollVote> = new EventEmitter();
+
   voteForm : FormGroup;
 
-  constructor(private fb : FormBuilder) {
+  constructor(private fb : FormBuilder)
+  {
     this.voteForm = this.fb.group({
       selected : this.fb.control("",[Validators.required]),
     });
    }
 
-  ngAfterViewInit(): void {
-    if(this.voted){
+  ngAfterViewInit(): void
+  {
+    if(this.voted)
+    {
       this.generateChart();
     }
   }
 
-  submitForm(){
-    console.log(this.voteForm.value);
+  submitForm()
+  {
+    const pollVoted : PollVote = {
+      id : this.id,
+      vote : this.voteForm.get("selected").value
+    }
+    this.pollVoted.emit(pollVoted);
   }
 
-  generateChart(){
-    const options : ApexCharts.ApexOptions = {
+  generateChart()
+  {
+   /*  const options : ApexCharts.ApexOptions = {
       series: [
         {
         data: this.results,
@@ -59,6 +73,31 @@ export class PollVoteComponent implements AfterViewInit {
 
     const chart = new ApexCharts(document.querySelector("poll-results"), options);
     chart.render();
+     */
+    var options = {
+      series: [{
+      data: this.results
+    }],
+      chart: {
+      type: 'bar',
+      height: 350
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        horizontal: true,
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    xaxis: {
+      categories: this.options,
 
+    }
+    };
+
+    var chart = new ApexCharts(document.querySelector("poll-results"), options);
+    chart.render();
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { Poll } from '../types';
+import { Poll, PollForm } from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class PollService {
   getPolls() : Observable<Poll[]> {
     return of([
       {
-        id: 1,
+      id: 1,
       question : "What do you like more, Pizza or Burger or Pasta",
       thumbnail : "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=625&q=80",
       results: [4,5,1],
@@ -35,8 +35,8 @@ export class PollService {
     console.log(pollId, voteNumber)
   }
 
-  createPoll(question: string, thumbnail:string, options: string[]){
-    console.log(question,thumbnail,options)
+  createPoll(poll :PollForm){
+    console.log(poll);
   }
 
 }
