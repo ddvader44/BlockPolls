@@ -38,8 +38,13 @@ export class Web3Service {
   }
 
   async executeTransaction(fnName : string, ...args : any[]) : Promise<void> {
-    const acc = await this.getAccount()
-    this.contract.methods[fnName](...args).send({ from : ''});
+    const acc = await this.getAccount();
+    this.contract.methods[fnName](...args).send({ from : acc});
+  }
+
+  async call(fnName : string, ...args : any[]){
+    const acc = await this.getAccount();
+    this.contract.methods[fnName](...args).call({ from : acc});
   }
 
 }
