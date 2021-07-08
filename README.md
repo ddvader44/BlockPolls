@@ -10,6 +10,8 @@ git clone https://github.com/ddvader44/BlockPolls
 
 - Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+- Replace contractAddress in https://github.com/ddvader44/BlockPolls/blob/master/src/app/blockchain/web3.service.ts with your local blockchain created contract address from Ganache Transactions
+
 ## Show your support
 
 Give a ⭐ if you liked this project!
