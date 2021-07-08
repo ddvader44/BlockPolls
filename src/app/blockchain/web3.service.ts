@@ -13,7 +13,7 @@ export class Web3Service {
   private web3 : Web3;
   private contract : Contract;
   private contractAddress = "0x...."; // replace with your local blockchain created contract Address from Ganache Transactions
-  
+
   constructor()
   {
     if(window.web3) {
@@ -31,6 +31,15 @@ export class Web3Service {
     else {
       console.warn("Metamask not found!");
     }
+  }
+
+  getAccount() : Promise<string> {
+    return this.web3.eth.getAccounts().then((accounts) => accounts[0] || '');
+  }
+
+  async executeTransaction(fnName : string, ...args : any[]) : Promise<void> {
+    const acc = await this.getAccount()
+    this.contract.methods[fnName](...args).send({ from : ''});
   }
 
 }
