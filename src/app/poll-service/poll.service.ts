@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { Poll, PollForm } from '../types';
-import { Web3Service } from '../blockchain/web3.service';
 import { fromAscii, toAscii } from 'web3-utils';
+import { Web3Service } from '../blockchain/web3.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +19,7 @@ export class PollService {
     const voter = await this.web3.call("getVoter",acc);
     const voterNormalized = this.normalizeVoter(voter);
 
-    for(let i = 0; i < totalPolls; i++) {
+    for(let i = 0; i < 2; i++) {
       const pollRaw = await this.web3.call("getPoll",i);
       const pollNormalized = this.normalizePoll(pollRaw, voterNormalized);
       polls.push(pollNormalized);
