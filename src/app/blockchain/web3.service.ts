@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { Observable } from 'rxjs';
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 
@@ -14,7 +15,7 @@ export class Web3Service {
   private contract : Contract;
   private contractAddress = "0x...."; // replace with your local blockchain created contract Address from Ganache Transactions
 
-  constructor()
+  constructor(private zone : NgZone)
   {
     if(window.web3) {
 
@@ -47,4 +48,16 @@ export class Web3Service {
     this.contract.methods[fnName](...args).call({ from : acc});
   }
 
+  onEvents(event : string) {
+    return new Observable((observer) => {
+      this.contract.events[event]().on('data', (data) => {
+        this.zone.run(() => {
+          observer.next({
+            event : data.event,
+            payload : data.returnValues
+          });
+        })
+      });
+    });
+  }
 }

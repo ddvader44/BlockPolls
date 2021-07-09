@@ -15,6 +15,12 @@ export class AppComponent {
 
   constructor(private ps: PollService) {}
 
+  ngOnInit() {
+    this.ps.onEvent("PollCreated").subscribe(() => {
+      this.polls = this.ps.getPolls();
+    });
+  }
+
   setActivePoll(poll){
   this.activePoll = null;
   setTimeout(() => {
