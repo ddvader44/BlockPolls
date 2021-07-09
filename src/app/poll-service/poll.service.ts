@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Poll, PollForm } from '../types';
 import { Web3Service } from '../blockchain/web3.service';
-import { fromAscii } from 'web3-utils';
+import { fromAscii, toAscii } from 'web3-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,12 @@ export class PollService {
     const totalPolls = await this.web3.call("getTotalPolls");
     const acc = await this.web3.getAccount();
     const voter = await this.web3.call("getVoter",acc);
+    const voterNormalized = this.normalizeVoter(voter);
 
-    for(let i=0; i< totalPolls; i++){
-      const poll = await this.web3.call("getPoll",i);
-      polls.push(poll);
+    for(let i = 0; i < totalPolls; i++) {
+      const pollRaw = await this.web3.call("getPoll",i);
+      const pollNormalized = this.normalizePoll(pollRaw, voterNormalized);
+      polls.push(pollNormalized);
     }
     return polls;
 
@@ -40,5 +42,24 @@ export class PollService {
       poll.thumbnail || '',
       poll.options.map((opt) => fromAscii(opt))
     );
+  }
+
+  private normalizeVoter(voter) {
+    return {
+      id : voter[0],
+      voterIds : voter[1].map(vote => parseInt(vote)),
+    };
+  }
+
+  private normalizePoll(pollRaw , voter) : Poll {
+    return {
+      id : parseInt(pollRaw[0]),
+      question : pollRaw[1],
+      thumbnail : pollRaw[2],
+      results : pollRaw[3].map((vote) => parseInt(vote)),
+      options : pollRaw[4].map(opt => toAscii(opt).replace(/\u0000/g,'')),
+      voted : voter.votedIds.length &&
+      voter.votedIds.find((votedId) => votedId === parseInt(pollRaw[0])) != undefined ,
+    }
   }
 }
